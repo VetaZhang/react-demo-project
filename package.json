@@ -1,0 +1,51 @@
+{
+  "name": "react-seed-project",
+  "version": "0.0.1",
+  "description": "react seed",
+  "main": "server.js",
+  "scripts": {
+    "dev": "NODE_ENV=development node ./server.js",
+    "prod": "NODE_ENV=production webpack --config ./webpack/prod.js",
+    "clean": "rm -rf ./dist"
+  },
+  "keywords": [
+    "react",
+    "seed"
+  ],
+  "author": "Veta",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.2",
+    "express": "^4.16.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "@hot-loader/react-dom": "^16.11.0",
+    "@types/react": "^16.9.17",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "^8.0.5",
+    "babel-polyfill": "^6.26.0",
+    "css-loader": "^2.1.1",
+    "eslint": "^6.8.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "qiniu-webpack-plugin": "^0.4.2",
+    "react-hot-loader": "^4.12.18",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-merge": "^4.2.2"
+  }
+}
