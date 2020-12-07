@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { hot } from "react-hot-loader/root";
+import { sayHello } from 'actions/hello';
 import styles from './style.css';
 
 class Hello extends React.Component {
-  componentWillMount() {
-    console.log('will mount');
-  }
   componentDidMount() {
       console.log('did mount');
   }
@@ -27,10 +25,7 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   setHelloTimes: (times) => {
-    dispatch({
-      type: 'sayHello',
-      times,
-    });
+    dispatch(sayHello(times));
   }
 })
 
