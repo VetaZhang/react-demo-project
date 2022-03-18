@@ -8,7 +8,6 @@ module.exports = {
       'node_modules',
     ],
     alias: {
-      'react-dom': '@hot-loader/react-dom',
       pages: path.resolve('./src/pages'),
       containers: path.resolve('./src/containers'),
       components: path.resolve('./src/components'),
@@ -22,17 +21,13 @@ module.exports = {
       {
         test: /\.(css|less|scss)$/,
         use: [
-          {
-            loader: "style-loader",
-            options: {
-              hmr: false
-            }
-          },
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[path]_[name]_[local]_[hash:base64:5]'
+              modules: {
+                localIdentName: '[path]_[name]_[local]_[hash:base64:5]',
+              },
             }
           },
           'less-loader'

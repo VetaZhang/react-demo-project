@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hot } from "react-hot-loader/root";
 import { sayHello } from 'actions/hello';
 import styles from './style.css';
 
@@ -32,4 +31,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(hot(Hello));
+)(Hello);

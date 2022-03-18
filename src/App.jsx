@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { hot } from "react-hot-loader/root";
 
 const Hello = lazy(() => import(/* webpackChunkName: 'hello' */ './containers/Hello'));
 
@@ -17,4 +16,4 @@ class App extends React.Component {
   }
 }
 
-export default hot(App);
+export default App;

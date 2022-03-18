@@ -1,22 +1,20 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const HTMLPlugin = require('html-webpack-plugin');
 const merger = require('webpack-merge');
 const commonWebpackConfig = require('./common');
 
-// 不显示 DeprecationWarning
-process.noDeprecation = true;
-
 const devWebpackConfig = {
+  target: 'web',
   mode: 'development',
   devtool: 'eval',
-  // stats: 'errors-only',
   devServer: {
     historyApiFallback: true,
     hot: true,
     open: true,
-    port: 8080,
-    disableHostCheck: true,
+    port: 4000,
   },
   stats:{
     modules: true,
@@ -26,8 +24,6 @@ const devWebpackConfig = {
   },
   entry: {
     bundle: [
-      'webpack-hot-middleware/client',
-      'react-hot-loader/patch',
       `${path.resolve()}/src/index.jsx`,
     ],
   },
@@ -42,8 +38,12 @@ const devWebpackConfig = {
       {
         test: /\.(js|jsx)$/,
         use: [
-          'react-hot-loader/webpack',
-          'babel-loader'
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              plugins: [require.resolve('react-refresh/babel')],
+            },
+          },
         ],
         exclude: /node_modules/
       }, 
@@ -57,12 +57,16 @@ const devWebpackConfig = {
     },
   },
   plugins: [
+    new ReactRefreshWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
+    new HTMLPlugin({
+      template: path.resolve(__dirname, '../src/index.html')
+    })
   ],
 };
 
