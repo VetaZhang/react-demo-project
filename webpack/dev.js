@@ -6,6 +6,9 @@ const HTMLPlugin = require('html-webpack-plugin');
 const merger = require('webpack-merge');
 const commonWebpackConfig = require('./common');
 
+// 不显示 DeprecationWarning
+process.noDeprecation = true;
+
 const devWebpackConfig = {
   target: 'web',
   mode: 'development',

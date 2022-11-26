@@ -1,32 +1,17 @@
 const os = require('os');
 const webpack = require('webpack');
 const path = require('path');
-// const QiniuPlugin = require('qiniu-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HTMLPlugin = require('html-webpack-plugin');
 const merger = require('webpack-merge');
-// const childProcess = require('child_process');
 const commonWebpackConfig = require('./common');
 
 // 不显示 DeprecationWarning
 process.noDeprecation = true;
 
-// const config = {
-//   path: `ssr/${childProcess.execSync('git rev-parse HEAD').toString().replace(/\n/, '')}`,
-//   cdn: 'http://cdn.com/',
-// };
-
-// // 这里配置 Qiniu Plugin
-// const qiniuPlugin = new QiniuPlugin({
-//   ACCESS_KEY: 'xxx',
-//   SECRET_KEY: 'xxx',
-//   bucket: 'bucket-name',
-//   path: config.path,
-//   include: [/(\.js|\.map)$/],
-// });
-
 const prodWebpackConfig = {
   mode: "production",
-  devtool: 'eval',
+  devtool: 'source-map',
 
   stats:{
     modules: false,
@@ -42,7 +27,6 @@ const prodWebpackConfig = {
   output: {
     path: `${path.resolve()}/dist`,
     filename: '[name].js',
-    // publicPath: `${config.cdn}${config.path}`,
     publicPath: '/',
     chunkFilename: '[name].[chunkhash:5].js',
   },
@@ -84,7 +68,9 @@ const prodWebpackConfig = {
         warnings: false,
       },
     }),
-    // qiniuPlugin, 
+    new HTMLPlugin({
+      template: path.resolve(__dirname, '../src/index.html')
+    }),
   ],
 };
 
