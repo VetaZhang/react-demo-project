@@ -1,6 +1,29 @@
 {
-  "presets": ["@babel/react", "@babel/env"],
+  "presets": [
+    "@babel/react",
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "chrome": "58"
+        }
+        // 不使用 @babel/env 来处理 polyfill
+        // "useBuiltIns": "entry",
+        // "corejs": {
+        //   "version": 3,
+        //   "proposals": true
+        // }
+      }
+    ]
+  ],
   "plugins": [
-    ["@babel/plugin-proposal-class-properties"]
+    ["@babel/transform-runtime", {
+      // 使用 @babel/transform-runtime 来处理 polyfill
+      "corejs": {
+        "version": 3,
+        "proposals": true
+      }
+    }],
+    ["@babel/proposal-class-properties"]
   ]
 }
