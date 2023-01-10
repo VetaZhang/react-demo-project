@@ -1,7 +1,11 @@
 const os = require('os');
 const webpack = require('webpack');
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const glob = require('glob');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
 const HTMLPlugin = require('html-webpack-plugin');
 const merger = require('webpack-merge');
 const commonWebpackConfig = require('./common');
@@ -11,13 +15,17 @@ process.noDeprecation = true;
 
 const prodWebpackConfig = {
   mode: "production",
-  devtool: 'source-map',
+  devtool: 'nosources-source-map',
 
   stats:{
     modules: false,
     children: false,
     chunks: false,
     chunkModules: false
+  },
+  
+  cache: {
+    type: 'filesystem',
   },
 
   entry: {
@@ -29,6 +37,7 @@ const prodWebpackConfig = {
     filename: '[name].js',
     publicPath: '/',
     chunkFilename: '[name].[chunkhash:5].js',
+    clean: true,
   },
 
   module: {
@@ -39,11 +48,42 @@ const prodWebpackConfig = {
           'babel-loader'
         ],
         exclude: /node_modules/
+      },
+      {
+        test: /\.(css|less|scss)$/,
+        use: [
+          // 'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path]_[name]_[local]_[hash:base64:5]',
+              },
+            }
+          },
+          'less-loader',
+          'postcss-loader'
+        ],
       }
     ]
   },
 
   optimization: {
+    runtimeChunk: 'single',
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+        extractComments: false,
+      }),
+      new CssMinimizerPlugin(),
+    ],
     splitChunks: {
       chunks() {
         return false;
@@ -57,17 +97,10 @@ const prodWebpackConfig = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
-    new UglifyJsPlugin({
-      sourceMap: true,
-      parallel: os.cpus().length,
-      uglifyOptions: {
-        minimize: true,
-        unused: true,
-        ecma: 5,
-        ie8: false,
-        warnings: false,
-      },
-    }),
+    new MiniCssExtractPlugin(),
+    // new PurgeCSSPlugin({
+    //   paths: glob.sync(`${path.resolve(__dirname, 'src')}/**/*`),
+    // }),
     new HTMLPlugin({
       template: path.resolve(__dirname, '../src/index.html')
     }),

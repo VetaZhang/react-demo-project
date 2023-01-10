@@ -18,21 +18,21 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.(css|less|scss)$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[path]_[name]_[local]_[hash:base64:5]',
-              },
-            }
-          },
-          'less-loader'
-        ],
-      }
+      // {
+      //   test: /\.(css|less|scss)$/,
+      //   use: [
+      //     'style-loader',
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         modules: {
+      //           localIdentName: '[path]_[name]_[local]_[hash:base64:5]',
+      //         },
+      //       }
+      //     },
+      //     'less-loader'
+      //   ],
+      // }
     ]
   },
 };

@@ -2,6 +2,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const WebpackBar = require('webpackbar');
 const HTMLPlugin = require('html-webpack-plugin');
 const merger = require('webpack-merge');
 const commonWebpackConfig = require('./common');
@@ -9,21 +11,20 @@ const commonWebpackConfig = require('./common');
 // 不显示 DeprecationWarning
 process.noDeprecation = true;
 
+const smp = new SpeedMeasurePlugin();
+
 const devWebpackConfig = {
   target: 'web',
   mode: 'development',
-  devtool: 'eval',
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
-    open: true,
     port: 4000,
   },
-  stats:{
-    modules: true,
-    children: true,
-    chunks: true,
-    chunkModules: true
+  stats: 'normal',
+  cache: {
+    type: 'filesystem',
   },
   entry: {
     bundle: [
@@ -53,6 +54,7 @@ const devWebpackConfig = {
     ]
   },
   optimization: {
+    
     splitChunks: {
       chunks() {
         return false;
@@ -60,8 +62,8 @@ const devWebpackConfig = {
     },
   },
   plugins: [
+    new WebpackBar(),
     new ReactRefreshWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -73,5 +75,5 @@ const devWebpackConfig = {
   ],
 };
 
-module.exports = merger(commonWebpackConfig, devWebpackConfig);
+module.exports = smp.wrap(merger(commonWebpackConfig, devWebpackConfig));
 
