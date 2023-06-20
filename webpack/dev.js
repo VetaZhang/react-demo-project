@@ -2,7 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+// const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const WebpackBar = require('webpackbar');
 const HTMLPlugin = require('html-webpack-plugin');
 const merger = require('webpack-merge');
@@ -11,7 +11,9 @@ const commonWebpackConfig = require('./common');
 // 不显示 DeprecationWarning
 process.noDeprecation = true;
 
-const smp = new SpeedMeasurePlugin();
+// 若使用 SpeedMeasurePlugin，会导致热更新后刷新页面报错
+// 报错内容：Cannot set properties of undefined (setting 'runtime')
+// const smp = new SpeedMeasurePlugin();
 
 const devWebpackConfig = {
   target: 'web',
@@ -50,11 +52,25 @@ const devWebpackConfig = {
           },
         ],
         exclude: /node_modules/
-      }, 
+      },
+      {
+        test: /\.(css|less|scss)$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path]_[name]_[local]_[hash:base64:5]',
+              },
+            }
+          },
+          'less-loader'
+        ],
+      }
     ]
   },
   optimization: {
-    
     splitChunks: {
       chunks() {
         return false;
@@ -75,5 +91,5 @@ const devWebpackConfig = {
   ],
 };
 
-module.exports = smp.wrap(merger(commonWebpackConfig, devWebpackConfig));
-
+// module.exports = smp.wrap(merger(commonWebpackConfig, devWebpackConfig));
+module.exports = merger(commonWebpackConfig, devWebpackConfig);

@@ -13,8 +13,8 @@ class Hello extends React.Component {
   render() {
     const { setHelloTimes, hello } = this.props;
     return (<div>
-      <div className={styles.text}>HelloHello World!～ × {hello.times}</div>
-      {/* <div className={styles.button} onClick={() => setHelloTimes(hello.times + 1)}>Say Hello</div> */}
+      <div className={styles.text}>Hello Hello World!～ × {hello.times}</div>
+      <div className={styles.button} onClick={() => setHelloTimes(hello.times + 1)}>Say Hello</div>
     </div>);
   }
 }
