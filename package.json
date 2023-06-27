@@ -16,8 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-model-store": "github:VetaZhang/react-model-store",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.1"

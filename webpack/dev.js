@@ -23,8 +23,11 @@ const devWebpackConfig = {
     historyApiFallback: true,
     hot: true,
     port: 4000,
+    open: true,
+    compress: true,
   },
-  stats: 'normal',
+  // stats: 'normal',
+  stats: "errors-only",
   cache: {
     type: 'filesystem',
   },
@@ -70,13 +73,14 @@ const devWebpackConfig = {
       }
     ]
   },
-  optimization: {
-    splitChunks: {
-      chunks() {
-        return false;
-      },
-    },
-  },
+  // optimization: {
+  //   // runtimeChunk: 'single',
+  //   splitChunks: {
+  //     chunks() {
+  //       return false;
+  //     },
+  //   },
+  // },
   plugins: [
     new WebpackBar(),
     new ReactRefreshWebpackPlugin(),

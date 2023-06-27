@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { store } from './redux/configureStore';
+// import { store } from './redux/configureStore';
 import App from './App';
 
 render(
-  <Provider store={store}>
+  // <Provider store={store}>
     <Router>
       <Route path="/" component={App} />
-    </Router>
-  </Provider>,
+    </Router>,
+  // </Provider>,
   document.getElementById('app'),
 );
