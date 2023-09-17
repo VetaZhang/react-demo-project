@@ -8,12 +8,11 @@ module.exports = {
       'node_modules',
     ],
     alias: {
-      pages: path.resolve('./src/pages'),
       containers: path.resolve('./src/containers'),
       components: path.resolve('./src/components'),
-      actions: path.resolve('./src/redux/actions'),
-      reducers: path.resolve('./src/redux/reducers'),
       utils: path.resolve('./src/utils'),
+      hookRedux: path.resolve('./src/hookRedux'),
+      redux: path.resolve('./src/redux'),
     },
   },
   module: {

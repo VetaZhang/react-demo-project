@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { userModel } from 'react-model-store';
 
-export default function TestStore() {
+export default function modelStoreDemo() {
   const user = userModel('user');
 
   return <div>
@@ -11,8 +11,8 @@ export default function TestStore() {
     }} />
 
     <div>age {user.age}</div>
-    <input type="text" onChange={(e) => {
-      user.setAge(e.target.value);
-    }} />
+    <button onClick={() => {
+      user.addAge();
+    }}>Add age</button>
   </div>
 }

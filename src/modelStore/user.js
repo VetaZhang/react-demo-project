@@ -13,7 +13,7 @@ export default {
     set({ name: newName });
   },
 
-  setAge({ set }, newage) {
-    set({ age: newage });
+  addAge({ set, get }, num = 1) {
+    set({ age: get('age') + num });
   }
 }

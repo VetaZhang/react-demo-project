@@ -12,7 +12,7 @@ dependencies:
     version: 16.14.0(react@16.14.0)
   react-model-store:
     specifier: github:VetaZhang/react-model-store
-    version: github.com/VetaZhang/react-model-store/89ac2601d0ce17775936219d89a4ac58eacfa7e0(react@16.14.0)
+    version: github.com/VetaZhang/react-model-store/cfc77ee0030878e27b594a11dc75af2574ed21ec(react@16.14.0)
   react-redux:
     specifier: ^7.1.0
     version: registry.npmmirror.com/react-redux@7.2.9(react-dom@16.14.0)(react@16.14.0)
@@ -270,6 +270,12 @@ packages:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
     dev: true
 
+  /graceful-fs@4.2.11:
+    resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /html-entities@2.3.3:
     resolution: {integrity: sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==}
     dev: true
@@ -456,9 +462,9 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/VetaZhang/react-model-store/89ac2601d0ce17775936219d89a4ac58eacfa7e0(react@16.14.0):
-    resolution: {tarball: https://codeload.github.com/VetaZhang/react-model-store/tar.gz/89ac2601d0ce17775936219d89a4ac58eacfa7e0}
-    id: github.com/VetaZhang/react-model-store/89ac2601d0ce17775936219d89a4ac58eacfa7e0
+  github.com/VetaZhang/react-model-store/cfc77ee0030878e27b594a11dc75af2574ed21ec(react@16.14.0):
+    resolution: {tarball: https://codeload.github.com/VetaZhang/react-model-store/tar.gz/cfc77ee0030878e27b594a11dc75af2574ed21ec}
+    id: github.com/VetaZhang/react-model-store/cfc77ee0030878e27b594a11dc75af2574ed21ec
     name: react-model-store
     version: 0.0.1
     peerDependencies:
@@ -4964,7 +4970,7 @@ packages:
       tslib: registry.npmmirror.com/tslib@2.4.1
     optionalDependencies:
       errno: 0.1.8
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
       image-size: 0.5.5
       make-dir: 2.1.0
       mime: 1.6.0
