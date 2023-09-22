@@ -12,7 +12,7 @@ module.exports = {
       components: path.resolve('./src/components'),
       utils: path.resolve('./src/utils'),
       hookRedux: path.resolve('./src/hookRedux'),
-      redux: path.resolve('./src/redux'),
+      reduxConfig: path.resolve('./src/redux'),
     },
   },
   module: {

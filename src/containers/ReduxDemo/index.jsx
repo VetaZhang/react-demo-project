@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sayHello } from 'redux/actions/hello';
+import { sayHello } from 'reduxConfig/actions/hello';
 import styles from './style.css';
 
 class ReduxDemo extends React.Component {
-  componentDidMount() {
-      console.log('did mount');
+  constructor(props) {
+    super(props);
+    this.state = {
+      //
+    };
   }
-  componentWillUnmount() {
-      console.log('will unmount');
-  }
+  
   render() {
     const { setHelloTimes, hello } = this.props;
     return (<div>
-      <div className={styles.text}>Hello Hello World!～ × {hello.times}</div>
+      <div className={styles.text}>Hello World～ × {hello.times}</div>
       <div className={styles.button} onClick={() => setHelloTimes(hello.times + 1)}>Say Hello</div>
     </div>);
   }

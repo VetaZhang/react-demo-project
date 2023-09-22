@@ -1,0 +1,50 @@
+{
+  // 别人可以直接使用你配置好的ESLint, ESLint 一旦发现配置文件中有 "root": true，它就会停止在父级目录中寻找。
+  "root": true,
+
+  // 指定解析器选项，EsLint通过parserOptions，允许指定校验的ecma的版本，及ecma的一些特性
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module", // 指定来源的类型，有两种”script”或”module”
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+
+  // 加入第三方插件，三方插件同样提供rules、extends等配置
+  "plugins": [],
+
+  // 继承别的规则配置文件
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+
+  // env 可以预设好的其他环境的全局变量，如brower、node环境变量、es6环境变量、mocha环境变量等
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+
+  // 指定你所要使用的全局变量
+  "globals": {
+    "var1": "writable",
+    "var2": "readonly"
+  },
+
+  // 具体的规则
+  "rules": {
+    "eqeqeq": "error",
+    "semi": "error",
+    "prefer-const": "error",
+    "constructor-super": "error"
+  },
+
+  // 忽略的文件
+  "ignorePatterns": [
+    "webpack/*",
+    "dist/*",
+    "postcss.config.js"
+  ]
+}
