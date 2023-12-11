@@ -26,6 +26,7 @@ const prodWebpackConfig = {
   
   cache: {
     type: 'filesystem',
+    cacheDirectory: path.resolve(__dirname, '.cache'),
   },
 
   entry: {
@@ -34,7 +35,7 @@ const prodWebpackConfig = {
 
   output: {
     path: `${path.resolve()}/dist`,
-    filename: '[name].js',
+    filename: '[name].[contenthash:5].js',
     publicPath: '/',
     chunkFilename: '[name].[chunkhash:5].js',
     clean: true,
@@ -43,16 +44,21 @@ const prodWebpackConfig = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         use: [
-          'babel-loader'
+          'babel-loader',
+          {
+            loader: 'thread-loader',
+            options: {
+              worker: os.cpus().length,
+            }
+          }
         ],
         exclude: /node_modules/
       },
       {
-        test: /\.(css|less|scss)$/,
+        test: /\.(css|scss)$/,
         use: [
-          // 'style-loader',
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
@@ -62,34 +68,59 @@ const prodWebpackConfig = {
               },
             }
           },
-          'less-loader',
+          'sass-loader',
           'postcss-loader'
         ],
+        exclude: /node_modules/
       }
     ]
   },
 
   optimization: {
+    // 创建一个在所有生成 chunk 之间共享的运行时文件
     runtimeChunk: 'single',
     usedExports: true,
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        parallel: true,
-        terserOptions: {
-          format: {
-            comments: false,
-          },
-        },
-        extractComments: false,
+        // parallel: true,
+        // terserOptions: {
+        //   format: {
+        //     comments: false,
+        //   },
+        // },
+        // extractComments: false,
       }),
       new CssMinimizerPlugin(),
     ],
+
+    // webpack 会根据一些条件自动拆分 chunks
+    // 想要自定义这些规则，可配置 splitChunks
     splitChunks: {
-      chunks() {
-        return false;
-      },
-    },
+      /**
+       * 指定要进行代码分割的 chunk 类型
+       * 'async' 默认值，只对异步导入的 chunk 进行分割，也就是 import() 导入
+       * 'initial' 只对原始导入的 chunk 进行分割，也就是 import x from 'x' 导入
+       * 'all' 以上两者均包括
+       */
+      chunks: 'async',
+
+      // 满足尺寸才发生拆分
+      // 例如导入10kb的依赖包小于30kb便不会拆分代码块
+      minSize: 30000,
+
+      cacheGroups: {
+        // 每个属性就是一个分组
+        vendors: {
+          chunks: "all",
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          minChunks: 1,
+          minSize: 30000,
+          priority: 10
+        }
+      }
+    }
   },
 
   plugins: [
@@ -98,7 +129,10 @@ const prodWebpackConfig = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:5].css',
+      chunkFilename: '[name].[chunkhash:5].css',
+    }),
     // new PurgeCSSPlugin({
     //   paths: glob.sync(`${path.resolve(__dirname, 'src')}/**/*`),
     // }),

@@ -10,6 +10,9 @@ const routes = [
   }, {
     path: '/modelStoreDemo',
     component: lazy(() => import(/* webpackChunkName: 'modelStoreDemo' */ './containers/ModelStoreDemo')),
+  }, {
+    path: '/tsDemo',
+    component: lazy(() => import(/* webpackChunkName: 'modelStoreDemo' */ './containers/TSDemo')),
   }
 ];
 

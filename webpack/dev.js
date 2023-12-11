@@ -1,4 +1,4 @@
-
+const os = require('os');
 const path = require('path');
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
@@ -30,6 +30,7 @@ const devWebpackConfig = {
   stats: "errors-only",
   cache: {
     type: 'filesystem',
+    cacheDirectory: path.resolve(__dirname, '.cache'),
   },
   entry: {
     bundle: [
@@ -41,11 +42,12 @@ const devWebpackConfig = {
     filename: '[name].js',
     publicPath: '/',
     chunkFilename: '[name].[chunkhash:5].js',
+    clean: true,
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         use: [
           {
             loader: require.resolve('babel-loader'),
@@ -53,11 +55,17 @@ const devWebpackConfig = {
               plugins: [require.resolve('react-refresh/babel')],
             },
           },
+          {
+            loader: 'thread-loader',
+            options: {
+              worker: os.cpus().length,
+            }
+          }
         ],
         exclude: /node_modules/
       },
       {
-        test: /\.(css|less|scss)$/,
+        test: /\.(css|scss)$/,
         use: [
           'style-loader',
           {
@@ -68,19 +76,21 @@ const devWebpackConfig = {
               },
             }
           },
-          'less-loader'
+          'sass-loader',
+          'postcss-loader'
         ],
+        exclude: /node_modules/
       }
     ]
   },
-  // optimization: {
-  //   // runtimeChunk: 'single',
-  //   splitChunks: {
-  //     chunks() {
-  //       return false;
-  //     },
-  //   },
-  // },
+  optimization: {
+    runtimeChunk: 'single',
+    // splitChunks: {
+    //   chunks() {
+    //     return false;
+    //   },
+    // },
+  },
   plugins: [
     new WebpackBar(),
     new ReactRefreshWebpackPlugin(),

@@ -10,7 +10,7 @@ class ReduxDemo extends React.Component {
       //
     };
   }
-  
+
   render() {
     const { setHelloTimes, hello } = this.props;
     return (<div>
