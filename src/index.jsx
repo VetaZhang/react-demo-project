@@ -12,16 +12,9 @@ ReactDOM.createRoot(document.getElementById('app')).render(
       <Suspense fallback={null}>
         <BrowserRouter>
           <Switch>
-            {
-              routerList.map(({ path, component }) => {
-                return <Route
-                  key={path}
-                  path={path}
-                  exact={path === '/'}
-                  component={component}
-                />;
-              })
-            }
+            {routerList.map(({ path, component }) => {
+              return <Route key={path} path={path} exact={path === '/'} component={component} />;
+            })}
           </Switch>
         </BrowserRouter>
       </Suspense>

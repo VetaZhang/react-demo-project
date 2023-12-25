@@ -18,33 +18,31 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
   ],
 
   // env 可以预设好的其他环境的全局变量，如brower、node环境变量、es6环境变量、mocha环境变量等
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
 
   // 指定你所要使用的全局变量
   "globals": {
-    "var1": "writable",
-    "var2": "readonly"
+    // "var1": "writable",
+    // "var2": "readonly"
   },
 
   // 具体的规则
   "rules": {
-    "eqeqeq": "error",
-    "semi": "error",
-    "prefer-const": "error",
-    "constructor-super": "error"
+    "eqeqeq": "error"
+    // "semi": "error",
+    // "prefer-const": "error",
+    // "constructor-super": "error"
   },
 
   // 忽略的文件
-  "ignorePatterns": [
-    "webpack/*",
-    "dist/*",
-    "postcss.config.js"
-  ]
+  "ignorePatterns": ["webpack/*", "dist/*", "build/*", "postcss.config.js"]
 }

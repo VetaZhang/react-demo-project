@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 interface IProps {
-  name: string
+  name: string;
 }
 
 // function FC(props: IProps) {
