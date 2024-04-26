@@ -2,7 +2,9 @@ import React, { StrictMode, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import { store } from 'reduxConfig/configureStore';
+
 import routerList from './routers';
 import './modelStore';
 

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+
 import CC from './CC';
 import FC from './FC';
 
 function TSDemo() {
-  return <>
-    <CC name='cc' />
-    <FC />
-  </>;
+  const [s, ss] = useState('');
+  useEffect(() => {
+    console.log(s);
+    
+  }, []);
+  return (
+    <>
+      <CC name="cc" />
+      <FC />
+    </>
+  );
 }
 
 export default TSDemo;

@@ -1,8 +1,7 @@
 import { lazy } from 'react';
 
 const routes = [
-  {
-    path: '/',
+  {path: '/',
     component: lazy(() => import(/* webpackChunkName: 'reduxDemo' */ './containers/ReduxDemo')),
   }, {
     path: '/hookReduxDemo',

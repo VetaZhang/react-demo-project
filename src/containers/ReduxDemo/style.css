@@ -2,8 +2,8 @@
   margin-bottom: 10px;
   padding-top: 200px;
   font-size: 16px;
-  color: #242424;
   text-align: center;
+  color: #242424;
   user-select: none;
 }
 
@@ -11,14 +11,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
+  border-radius: 4px;
   width: 100px;
   height: 36px;
-  margin: auto;
-  background-color: #04182a;
-  border-radius: 4px;
-  color: #fff;
   font-size: 14px;
   text-align: center;
+  color: #ffffff;
+  background-color: #04182a;
   cursor: pointer;
   user-select: none;
+}
+
+div {
+  background-color: violet;
 }

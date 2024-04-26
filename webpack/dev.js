@@ -1,12 +1,13 @@
-const os = require('os');
-const path = require('path');
-const webpack = require('webpack');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const os = require("os");
+const path = require("path");
+const webpack = require("webpack");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const WebpackBar = require('webpackbar');
-const HTMLPlugin = require('html-webpack-plugin');
-const merger = require('webpack-merge');
-const commonWebpackConfig = require('./common');
+const WebpackBar = require("webpackbar");
+const HTMLPlugin = require("html-webpack-plugin");
+const merger = require("webpack-merge");
+const commonWebpackConfig = require("./common");
+const PurifyCSSPlugin = require("./customPlugins/purifycss");
 
 // 不显示 DeprecationWarning
 process.noDeprecation = true;
@@ -16,9 +17,9 @@ process.noDeprecation = true;
 // const smp = new SpeedMeasurePlugin();
 
 const devWebpackConfig = {
-  target: 'web',
-  mode: 'development',
-  devtool: 'eval-cheap-module-source-map',
+  target: "web",
+  mode: "development",
+  devtool: "eval-cheap-module-source-map",
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -29,19 +30,17 @@ const devWebpackConfig = {
   // stats: 'normal',
   stats: "errors-only",
   cache: {
-    type: 'filesystem',
-    cacheDirectory: path.resolve(__dirname, '.cache'),
+    type: "filesystem",
+    cacheDirectory: path.resolve(__dirname, ".cache"),
   },
   entry: {
-    bundle: [
-      `${path.resolve()}/src/index.jsx`,
-    ],
+    bundle: [`${path.resolve()}/src/index.jsx`],
   },
   output: {
     path: path.resolve(),
-    filename: '[name].js',
-    publicPath: '/',
-    chunkFilename: '[name].[chunkhash:5].js',
+    filename: "[name].js",
+    publicPath: "/",
+    chunkFilename: "[name].[chunkhash:5].js",
     clean: true,
   },
   module: {
@@ -50,41 +49,41 @@ const devWebpackConfig = {
         test: /\.(js|jsx|ts|tsx)$/,
         use: [
           {
-            loader: require.resolve('babel-loader'),
+            loader: require.resolve("babel-loader"),
             options: {
-              plugins: [require.resolve('react-refresh/babel')],
+              plugins: [require.resolve("react-refresh/babel")],
             },
           },
           {
-            loader: 'thread-loader',
+            loader: "thread-loader",
             options: {
               worker: os.cpus().length,
-            }
-          }
+            },
+          },
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(css|scss)$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: {
-                localIdentName: '[path]_[name]_[local]_[hash:base64:5]',
+                localIdentName: "[path]_[name]_[local]_[hash:base64:5]",
               },
-            }
+            },
           },
-          'sass-loader',
-          'postcss-loader'
+          "sass-loader",
+          "postcss-loader",
         ],
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: "single",
     // splitChunks: {
     //   chunks() {
     //     return false;
@@ -95,13 +94,14 @@ const devWebpackConfig = {
     new WebpackBar(),
     new ReactRefreshWebpackPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {
+      "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
     new HTMLPlugin({
-      template: path.resolve(__dirname, '../src/index.html')
-    })
+      template: path.resolve(__dirname, "../src/index.html"),
+    }),
+    // new PurifyCSSPlugin(),
   ],
 };
 
